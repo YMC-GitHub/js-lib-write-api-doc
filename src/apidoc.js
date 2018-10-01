@@ -1,3 +1,4 @@
+import parser from './parser.js';
 //----make----
 export default class Apidoc {
     constructor(docId, data = null) {
@@ -26,18 +27,30 @@ export default class Apidoc {
         return this
     }
     // (new Apidoc('123')).property('host','127.0.0.1').property('port','8080').property('api','/')
-    
+
     registerMethod() {
+        /*
         Object.keys(this.__data).forEach(key => {
             if (!(key in this) && this.__data[key]) {
                 this[key] = (val, def) => this.property(key, val, def)
             }
         })
         return this
+        */
+       let that = this
+        Object.keys(that.__data).forEach(key => {
+            if (!(key in that) && that.__data[key]) {
+                that[key] = (val, def) => that.property(key, val, def)
+            }
+        })
+        return that
     }
     //after registerMethod(), we can use as below:
     // when set:
     //(new Apidoc('123')).registerMethod().host('127.0.0.1').port(8080').api('/')
     // when get:
     //(new Apidoc('123')).registerMethod().host()
+    toStr (){
+        return parser(this)
+    }
 }

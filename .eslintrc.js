@@ -17,7 +17,7 @@ module.exports = {
         // ECMAScript 版本
         "ecmaVersion": 6,
         "sourceType": "module", //设置为 "script" (默认) 或 "module"（如果你的代码是 ECMAScript 模块)。
-        //想使用的额外的语言特性:
+        // ECMAScript 特性: 想用或不用的特性
         "ecmaFeatures": {
             // 允许在全局作用域下使用 return 语句
             "globalReturn": true,
@@ -28,19 +28,22 @@ module.exports = {
             "modules": true
         }
     },
-    //-----让eslint支持 JSX start
+
     "plugins": [
-        "react"
+         //-----让eslint支持 JSX start
+        //"react"
+         //-----让eslint支持 JSX end
     ],
     "extends": [
+        //-----让eslint支持 JSX end
         "eslint:recommended",
-        "plugin:react/recommended"
+        //"plugin:react/recommended"
+        //-----让eslint支持 JSX end
+        'plugin:prettier/recommended'
     ],
-    //-----让eslint支持 JSX end
-
 
     /**
-     * "off" 或 0 - 关闭规则
+     * "off" 或 0 - 关闭规则，使用忽略级别的错误：off
      * "warn" 或 1 - 开启规则，使用警告级别的错误：warn (不会导致程序退出),
      * "error" 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
      */
@@ -126,23 +129,23 @@ module.exports = {
         // 强制把变量的使用限制在其定义的作用域范围内
         "block-scoped-var": 0,
         // 限制圈复杂度，也就是类似if else能连续接多少个
-        "complexity": [2, 9],
+        "complexity": [0, 9],
         // 要求 return 语句要么总是指定返回的值，要么不指定
         "consistent-return": 0,
         // 强制所有控制语句使用一致的括号风格
-        "curly": [2, "all"],
+        "curly": [0, "all"],
         // switch 语句强制 default 分支，也可添加 // no default 注释取消此次警告
         "default-case": 2,
         // 强制object.key 中 . 的位置，参数:
         // property，'.'号应与属性在同一行
         // object, '.' 号应与对象名在同一行
-        "dot-location": [2, "property"],
+        //"dot-location": [0, "property"],
         // 强制使用.号取属性
         // 参数： allowKeywords：true 使用保留字做属性名时，只能使用.方式取属性
         // false 使用保留字做属性名时, 只能使用[]方式取属性 e.g [2, {"allowKeywords": false}]
         // allowPattern: 当属性名匹配提供的正则表达式时，允许使用[]方式取值,否则只能用.号取值 e.g [2, {"allowPattern": "^[a-z]+(_[a-z]+)+$"}]
         "dot-notation": [2, {
-            "allowKeywords": false
+            "allowKeywords": true
         }],
         // 使用 === 替代 == allow-null允许null和undefined==
         "eqeqeq": [2, "allow-null"],
@@ -193,7 +196,7 @@ module.exports = {
         // 禁止在循环中出现 function 声明和表达式
         "no-loop-func": 1,
         // 禁用魔术数字(3.14什么的用常量代替)
-        "no-magic-numbers": [1, {
+        "no-magic-numbers": [0, {
             "ignore": [0, -1, 1]
         }],
         // 禁止使用多个空格
@@ -299,7 +302,7 @@ module.exports = {
         // require return statements after callbacks
         "callback-return": 0,
         // 要求 require() 出现在顶层模块作用域中
-        "global-require": 1,
+        "global-require": 0,
         // 要求回调函数中有容错处理
         "handle-callback-err": [2, "^(err|error)$"],
         // 禁止混合常规 var 声明和 require 调用
@@ -325,7 +328,7 @@ module.exports = {
         "block-spacing": [1, "never"],
         //强制使用一致的缩进 第二个参数为 "tab" 时，会使用tab，
         // if while function 后面的{必须与if在同一行，java风格。
-        "brace-style": [2, "1tbs", {
+        "brace-style": [0, "1tbs", {
             "allowSingleLine": true
         }],
         // 双峰驼命名格式
@@ -348,7 +351,7 @@ module.exports = {
         "func-names": 0,
         // 文件末尾强制换行
         "eol-last": 2,
-        "indent": [2, 4, {
+        "indent": [2, 2, {
             "SwitchCase": 1
         }],
         // 强制在对象字面量的属性中键和值之间使用一致的间距
@@ -360,7 +363,7 @@ module.exports = {
         "linebreak-style": [1, "unix"],
         // 要求在注释周围有空行 ( 要求在块级注释之前有一空行)
         "lines-around-comment": [1, {
-            "beforeBlockComment": true
+            "beforeBlockComment": false
         }],
         // 强制一致地使用函数声明或函数表达式，方法定义风格，参数：
         // declaration: 强制使用方法声明的方式，function f(){} e.g [2, "declaration"]
@@ -468,9 +471,9 @@ module.exports = {
         // 要求对象字面量属性名称用引号括起来
         "quote-props": 0,
         // 强制使用一致的反勾号、双引号或单引号
-        "quotes": [2, "double", "avoid-escape"],
+        "quotes": [2, "single", "avoid-escape"],
         // 要求使用 JSDoc 注释
-        "require-jsdoc": 1,
+        "require-jsdoc": 0,
         // 要求或禁止使用分号而不是 ASI（这个才是控制行尾部分号的，）
         "semi": [2, "always"],
         // 强制分号之前和之后使用一致的空格
@@ -503,10 +506,10 @@ module.exports = {
         // ES6.相关 //
         //////////////
 
-        // 要求箭头函数体使用大括号
+        // 要求箭头函数__身体--使用大括号
         "arrow-body-style": 2,
-        // 要求箭头函数的参数使用圆括号
-        "arrow-parens": 2,
+        // 要求箭头函数__参数--使用圆括号
+        "arrow-parens": 0,
         "arrow-spacing": [2, {
             "before": true,
             "after": true
@@ -561,6 +564,7 @@ module.exports = {
         // 要求或禁止模板字符串中的嵌入表达式周围空格的使用
         "template-curly-spacing": 1,
         // 强制在 yield* 表达式中 * 周围使用空格
-        "yield-star-spacing": 2
+        "yield-star-spacing": 2,
+        "prettier/prettier": "error"
     }
 }

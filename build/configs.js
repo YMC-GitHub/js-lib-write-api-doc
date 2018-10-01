@@ -1,25 +1,41 @@
-/**
- * refer:https://github.com/vuejs/vuex/blob/dev/build/configs.js
- */
-const path = require('path')
-const buble = require('rollup-plugin-buble')
-const replace = require('rollup-plugin-replace')
-const version = process.env.VERSION || require('../package.json').version
-const banner =
-`/**
+const path = require('path');
+const buble = require('rollup-plugin-buble');
+const replace = require('rollup-plugin-replace');
+const version = process.env.VERSION || require('../package.json').version;
+const banner = `/**
  * write-api-doc v${version}
  * (c) ${new Date().getFullYear()} Ye Miancheng
  * @license MIT
- */`
+ */`;
 
-const resolve = _path => path.resolve(__dirname, '../', _path)
+/**
+ * 获取绝对路径
+ * @param {*} _path 路径
+ * @returns {*}
+ * 传入某一路径，返回绝对路径
+ */
+const resolve = _path => path.resolve(__dirname, '../', _path);
 
-// 输入输出以及开发环境
+/**
+ * 输入输出配置
+ */
 const configs = {
   umdDev: {
+    /**
+     * @prop input 输入文件
+     */
     input: resolve('src/index.js'),
+    /**
+     * @prop file 输出文件
+     */
     file: resolve('dist/write-api-doc.js'),
+    /**
+     * @prop format 类库规范
+     */
     format: 'umd',
+    /**
+     * @prop env 当前环境
+     */
     env: 'development'
   },
   umdProd: {
@@ -38,9 +54,14 @@ const configs = {
     file: resolve('dist/write-api-doc.esm.js'),
     format: 'es'
   }
-}
+};
 
-function genConfig (opts) {
+/**
+ * 生成rollup配置
+ * @param {*} opts 配置
+ * @returns {*} config
+ */
+function genConfig(opts) {
   const config = {
     input: {
       input: opts.input,
@@ -57,23 +78,33 @@ function genConfig (opts) {
       format: opts.format,
       name: 'write-api-doc'
     }
-  }
+  };
 
   if (opts.env) {
-    config.input.plugins.unshift(replace({
-      'process.env.NODE_ENV': JSON.stringify(opts.env)
-    }))
+    config.input.plugins.unshift(
+      replace({
+        'process.env.NODE_ENV': JSON.stringify(opts.env)
+      })
+    );
   }
 
-  return config
+  return config;
 }
 
-function mapValues (obj, fn) {
-  const res = {}
+/**
+ * 遍历执函
+ * @param {*} obj 对象
+ * @param {*} fn 函数
+ * @returns {Object} 对象
+ * @description
+ * 遍历对象键值，执行某一函数，返回一个对象，它带有键和值，值为函数结果
+ */
+function mapValues(obj, fn) {
+  const res = {};
   Object.keys(obj).forEach(key => {
-    res[key] = fn(obj[key], key)
-  })
-  return res
+    res[key] = fn(obj[key], key);
+  });
+  return res;
 }
 
-module.exports = mapValues(configs, genConfig)
+module.exports = mapValues(configs, genConfig);

@@ -29,32 +29,34 @@ import Apidoc from '../src/apidoc.js';
 import chai from 'chai';
 
 let expect = chai.expect;
-//----test----
-let doc = (new Apidoc('123'))
-//test api-style-01
-doc.property('host', '127.0.0.1').property('port', '8080').registerMethod()
-describe('api-style-01', function () {
-    describe('host', function () {
-        it('expect host to be equal 127.0.0.1', function () {
-            expect(doc.property('host')).to.be.equal('127.0.0.1');
-        });
+// ----test----
+let doc = new Apidoc('123');
+// test api-style-01
+doc
+  .property('host', '127.0.0.1')
+  .property('port', '8080')
+  .registerMethod();
+describe('api-style-01', function() {
+  describe('host', function() {
+    it('expect host to be equal 127.0.0.1', function() {
+      expect(doc.property('host')).to.be.equal('127.0.0.1');
     });
-    describe('port', function () {
-        it('expect port to be equal 8080', function () {
-
-            expect(doc.property('port')).to.be.equal('8080');
-        });
+  });
+  describe('port', function() {
+    it('expect port to be equal 8080', function() {
+      expect(doc.property('port')).to.be.equal('8080');
     });
-})
-describe('api-style-02', function () {
-    describe('host', function () {
-        it('expect host to be equal 127.0.0.1', function () {
-            expect(doc.host()).to.be.equal('127.0.0.1');
-        });
+  });
+});
+describe('api-style-02', function() {
+  describe('host', function() {
+    it('expect host to be equal 127.0.0.1', function() {
+      expect(doc.host()).to.be.equal('127.0.0.1');
     });
-    describe('port', function () {
-            it('expect port to be equal 8080', function () {
-                    expect(doc.port()).to.be.equal('8080');
-            });
+  });
+  describe('port', function() {
+    it('expect port to be equal 8080', function() {
+      expect(doc.port()).to.be.equal('8080');
     });
-})
+  });
+});

@@ -1,6 +1,6 @@
 {
   "name": "write-api-doc",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "write api doc,it can be a tool for apidoc",
   "main": "dist/write-api-doc.common.js",
   "module": "dist/write-api-doc.esm.js",
@@ -9,7 +9,7 @@
     "dev:dist": "rollup -wm --config build/rollup.dev.config.js",
     "build": "node build/rollup.pro.config.js",
     "lint": "eslint src test",
-    "test:unit": "rollup --config build/rollup.dev.config.js && mocha --compilers js:babel-core/register",
+    "test:unit": "rollup --config build/rollup.dev.config.js && mocha --require babel-core/register",
     "format": "prettier --write \"src/*.js\" \"test/**/*.js\"",
     "release": "bash build/release.sh"
   },
@@ -25,7 +25,6 @@
   "homepage": "https://github.com/ymc-github/write-api-doc#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.2",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "^6.22.0",
@@ -33,12 +32,12 @@
     "babel-register": "^6.26.0",
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
-    "eslint": "^6.0.1",
-    "eslint-config-prettier": "^3.1.0",
+    "eslint": "6.1.0",
+    "eslint-config-prettier": "6.0.0",
     "eslint-plugin-prettier": "^3.0.0",
-    "husky": "^1.1.2",
-    "lint-staged": "^7.3.0",
-    "mocha": "^5.2.0",
+    "husky": "3.0.1",
+    "lint-staged": "9.2.0",
+    "mocha": "^6.2.0",
     "mochawesome": "^4.0.1",
     "prettier": "^1.14.3",
     "rollup": "0.68.2",
@@ -58,5 +57,10 @@
       "pre-commit": "lint-staged"
     }
   },
-  "files":["dist","package.json","readme.md","doc-usage-**"]
+  "files": [
+    "dist",
+    "package.json",
+    "readme.md",
+    "doc-usage-**"
+  ]
 }

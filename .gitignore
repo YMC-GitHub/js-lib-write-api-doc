@@ -7,3 +7,7 @@ examples/**/build.js
 base-tutorial.md
 mochawesome-report/
 log-dev-zh.md
+.nyc_output/
+coverage/
+
+

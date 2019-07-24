@@ -4,7 +4,7 @@ const replace = require('rollup-plugin-replace');
 const version = process.env.VERSION || require('../package.json').version;
 const banner = `/**
  * write-api-doc v${version}
- * (c) ${new Date().getFullYear()} Ye Miancheng
+ * (c) 2018 Ye Miancheng
  * @license MIT
  */`;
 
@@ -12,7 +12,7 @@ const banner = `/**
  * 获取绝对路径
  * @param {*} _path 路径
  * @returns {*}
- * 传入某一路径，返回绝对路径
+ * 传入相对于工程目录的某一路径，返回绝对路径
  */
 const resolve = _path => path.resolve(__dirname, '../', _path);
 

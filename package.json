@@ -1,6 +1,6 @@
 {
   "name": "write-api-doc",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "write api doc,it can be a tool for apidoc",
   "main": "dist/write-api-doc.common.js",
   "module": "dist/write-api-doc.esm.js",
@@ -57,5 +57,6 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  }
+  },
+  "files":["dist","package.json","readme.md","doc-usage-**"]
 }

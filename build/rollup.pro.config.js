@@ -15,6 +15,12 @@ if (!fs.existsSync('dist')) {
 // 构建输出脚本
 build(Object.keys(configs).map(key => configs[key]));
 
+/**
+ * 构建输出脚本
+ * @param {*} builds 一个数组，元素为rollup的配置选项
+ * @description
+ * 通过递归，生产构建脚本
+ */
 function build(builds) {
     // 当前构建序号
     let built = 0;
@@ -35,6 +41,9 @@ function build(builds) {
     next();
 }
 
+/**
+ *
+ */
 function buildEntry({ input, output }) {
     // 检查环境：开发模式还是生产模式
     const isProd = /min\.js$/.test(output.file);
@@ -46,21 +55,9 @@ function buildEntry({ input, output }) {
             .then(bundle => bundle.generate(output))
             // 压缩
             // 写入
-            .then(({ code }) => {
-                if (isProd) {
-                    var minified =
-                        (output.banner ? output.banner + '\n' : '') +
-                        uglify.minify(code, {
-                            output: {
-                                /* eslint-disable camelcase */
-                                ascii_only: true
-                                /* eslint-enable camelcase */
-                            }
-                        }).code;
-                    return write(output.file, minified, true);
-                } else {
-                    return write(output.file, code);
-                }
+            .then((bundleOutput) => {
+                const code = bundleOutput.output[0] && !bundleOutput.output[0].isAsset && bundleOutput.output[0].code ||""
+                return writeToFile({isProd,output,code:code})
             })
     );
 }
@@ -97,3 +94,20 @@ function logError(e) {
 function blue(str) {
     return '\x1b[1m\x1b[34m' + str + '\x1b[39m\x1b[22m';
 }
+function writeToFile({isProd,output,code}){
+  if (isProd) {
+    var minified =
+        (output.banner ? output.banner + '\n' : '') +
+        uglify.minify(code, {
+            output: {
+                /* eslint-disable camelcase */
+                ascii_only: true
+                /* eslint-enable camelcase */
+            }
+        }).code;
+    return write(output.file, minified, true);
+} else {
+    return write(output.file, code);
+}
+}
+

@@ -9,5 +9,4 @@ mochawesome-report/
 log-dev-zh.md
 .nyc_output/
 coverage/
-
-
+dev/

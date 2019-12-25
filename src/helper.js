@@ -1,3 +1,11 @@
+// ---------- helper ----------
+// this is the helper file
+// ---------- helper ----------
+// tasks:
+// 01.some sugar function for apidoc  lib
+// 02.make json object to string
+// get detail on https://apidocjs.com/#param-api
+
 export const api = (method, path, title) => `* @api {${method}} ${path} ${title}`;
 export const apiName = name => `* @apiName ${name}`;
 export const apiGroup = group => `* @apiGroup ${group}`;

@@ -1,3 +1,11 @@
+// ---------- parser ----------
+// this is the parser file
+// ---------- parser ----------
+// tasks:
+// 01.include some helper files
+// 02.makes apidoc str with engine as his arg
+
+// include some helper files
 import {
   api,
   apiName,
@@ -14,56 +22,57 @@ import {
   apiErrorExample,
   objToJsonStr
 } from './helper.js';
-export default sugar => {
+//
+export default its => {
   let result = [];
   result.push('/**');
-  if (sugar.api) {
-    result.push(api(...sugar.api()));
+  if (its.api) {
+    result.push(api(...its.api()));
   }
-  if (sugar.name) {
-    result.push(apiName(sugar.name()));
+  if (its.name) {
+    result.push(apiName(its.name()));
   }
-  if (sugar.group) {
-    result.push(apiGroup(sugar.group()));
+  if (its.group) {
+    result.push(apiGroup(its.group()));
   }
-  if (sugar.version) {
-    result.push(apiVersion(sugar.version()));
+  if (its.version) {
+    result.push(apiVersion(its.version()));
   }
-  if (sugar.description) {
-    result.push(apiDescription(sugar.description()));
+  if (its.description) {
+    result.push(apiDescription(its.description()));
   }
-  if (sugar.permission) {
-    result.push(apiPermission(sugar.permission()));
+  if (its.permission) {
+    result.push(apiPermission(its.permission()));
   }
-  if (sugar.header) {
-    // console.log(sugar.header())
-    result.push(apiHeader(sugar.header()));
+  if (its.header) {
+    // fix:* @apiHeader [object Object] undefined
+    let data = its.header();
+    Object.keys(data).forEach(v => result.push(apiHeader(v, data[v])));
   }
-  if (sugar.sampleRequest) {
-    result.push(apiSampleRequest(sugar.sampleRequest()));
+  if (its.sampleRequest) {
+    result.push(apiSampleRequest(its.sampleRequest()));
   }
-  if (sugar.paramExample) {
-    result.push(apiParamExample(...sugar.paramExample().slice(0, 2)));
-    result.push(objToJsonStr(...sugar.paramExample().slice(2)));
+  if (its.paramExample) {
+    result.push(apiParamExample(...its.paramExample().slice(0, 2)));
+    result.push(objToJsonStr(...its.paramExample().slice(2)));
   }
-  if (sugar.param) {
-    // console.log(sugar.param())
-    sugar.param().forEach(v => {
+  if (its.param) {
+    its.param().forEach(v => {
       result.push(apiParam(...v));
     });
   }
-  if (sugar.success) {
-    sugar.success().forEach(v => {
+  if (its.success) {
+    its.success().forEach(v => {
       result.push(apiSuccess(...v));
     });
   }
-  if (sugar.successExample) {
-    result.push(apiSuccessExample(...sugar.successExample().slice(0, 2)));
-    result.push(objToJsonStr(...sugar.successExample().slice(2)));
+  if (its.successExample) {
+    result.push(apiSuccessExample(...its.successExample().slice(0, 2)));
+    result.push(objToJsonStr(...its.successExample().slice(2)));
   }
-  if (sugar.failExample) {
-    result.push(apiErrorExample(...sugar.failExample().slice(0, 2)));
-    result.push(objToJsonStr(...sugar.failExample().slice(2)));
+  if (its.failExample) {
+    result.push(apiErrorExample(...its.failExample().slice(0, 2)));
+    result.push(objToJsonStr(...its.failExample().slice(2)));
   }
   result.push('*/');
   return result.join('\n');

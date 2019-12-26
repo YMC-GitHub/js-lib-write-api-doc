@@ -49,7 +49,7 @@ doc
   .property('group', data.group)
   .property('version', data.version)
   .property('description', data.description)
-  .property('permission', data.permission)
+  .property('permision', data.permision)
 */
 doc.registerMethod();
 

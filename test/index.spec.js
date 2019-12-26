@@ -1,6 +1,6 @@
 /**
  * write apidoc with js like this
- * eg:apidoc.host().port().api().name().group().version().desc().permission().header().param().sucess().fail()
+ * eg:apidoc.host().port().api().name().group().version().desc().permision().header().param().sucess().fail()
  */
 
 // include some file to test

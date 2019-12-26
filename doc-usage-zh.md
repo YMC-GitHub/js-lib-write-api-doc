@@ -22,7 +22,7 @@ let doc = Doc.property('host', '127.0.0.1')
     .property('group', '/api/backend/admin/list')
     .property('version', '1.0.0')
     .property('description', 'R-get admin list')
-    .property('permission', 'none')
+    .property('permision', 'none')
     .property('header', {
       'Accept-Encoding': 'Accept-Encoding: gzip, deflate'
     })
@@ -71,7 +71,7 @@ let doc = Doc.host('127.0.0.1')
     .group('/api/backend/admin/list')
     .version( '1.0.0')
     .description('R-get admin list')
-    .permission('none')
+    .permision('none')
     .header({
       'Accept-Encoding': 'Accept-Encoding: gzip, deflate'
     })

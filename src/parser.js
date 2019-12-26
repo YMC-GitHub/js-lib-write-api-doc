@@ -12,7 +12,7 @@ import {
   apiGroup,
   apiVersion,
   apiDescription,
-  apiPermission,
+  apiPermision,
   apiHeader,
   apiSampleRequest,
   apiParam,
@@ -41,8 +41,8 @@ export default its => {
   if (its.description) {
     result.push(apiDescription(its.description()));
   }
-  if (its.permission) {
-    result.push(apiPermission(its.permission()));
+  if (its.permision) {
+    result.push(apiPermision(its.permision()));
   }
   if (its.header) {
     // fix:* @apiHeader [object Object] undefined

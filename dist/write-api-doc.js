@@ -22,7 +22,7 @@
   var apiGroup = function (group) { return ("* @apiGroup " + group); };
   var apiVersion = function (apiVersion) { return ("* @apiVersion " + apiVersion); };
   var apiDescription = function (apiDescription) { return ("* @apiDescription " + apiDescription); };
-  var apiPermission = function (apiPermission) { return ("* @apiPermission " + apiPermission); };
+  var apiPermision = function (apiPermision) { return ("* @apiPermision " + apiPermision); };
   var apiHeader = function (key, val) { return ("* @apiHeader " + key + " " + val); };
   var apiSampleRequest = function (url) { return ("* @apiSampleRequest " + url); };
   var apiParamExample = function (type, desc) { return ("* @apiParamExample {" + type + "} " + desc + ":"); };
@@ -55,8 +55,8 @@
     if (its.description) {
       result.push(apiDescription(its.description()));
     }
-    if (its.permission) {
-      result.push(apiPermission(its.permission()));
+    if (its.permision) {
+      result.push(apiPermision(its.permision()));
     }
     if (its.header) {
       // fix:* @apiHeader [object Object] undefined
@@ -166,7 +166,7 @@
       .property('group', '/api/backend/admin/list')
       .property('version', '1.0.0')
       .property('description', 'R-get admin list')
-      .property('permission', 'none')
+      .property('permision', 'none')
       .property('header', {
         'Accept-Encoding': 'Accept-Encoding: gzip, deflate'
       })

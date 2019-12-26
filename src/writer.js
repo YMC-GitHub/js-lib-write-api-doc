@@ -14,7 +14,7 @@ export default his =>
     .property('group', '/api/backend/admin/list')
     .property('version', '1.0.0')
     .property('description', 'R-get admin list')
-    .property('permission', 'none')
+    .property('permision', 'none')
     .property('header', {
       'Accept-Encoding': 'Accept-Encoding: gzip, deflate'
     })

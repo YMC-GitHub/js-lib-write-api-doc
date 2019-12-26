@@ -6,7 +6,7 @@ export default {
   group: '/api/backend/admin/list',
   version: '1.0.0',
   description: 'R-get admin list',
-  permission: 'none',
+  permision: 'none',
   header: {
     'Accept-Encoding': 'Accept-Encoding: gzip, deflate'
   },

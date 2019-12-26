@@ -4,7 +4,7 @@
 * @apiGroup /api/backend/admin/list
 * @apiVersion 1.0.0
 * @apiDescription R-get admin list
-* @apiPermission none
+* @apiPermision none
 * @apiHeader Accept-Encoding Accept-Encoding: gzip, deflate
 * @apiSampleRequest 127.0.0.1:8080/api/backend/admin/list
 * @apiParamExample {json} request param sample:

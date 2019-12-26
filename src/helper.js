@@ -11,7 +11,8 @@ export const apiName = name => `* @apiName ${name}`;
 export const apiGroup = group => `* @apiGroup ${group}`;
 export const apiVersion = apiVersion => `* @apiVersion ${apiVersion}`;
 export const apiDescription = apiDescription => `* @apiDescription ${apiDescription}`;
-export const apiPermision = apiPermision => `* @apiPermision ${apiPermision}`;
+//fix:{"message":"parser plugin 'apipermision' not found in block: 0","level":"warn"}
+export const apiPermision = apiPermision => `* @apiPermission ${apiPermision}`;
 export const apiHeader = (key, val) => `* @apiHeader ${key} ${val}`;
 export const apiSampleRequest = url => `* @apiSampleRequest ${url}`;
 export const apiParamExample = (type, desc) => `* @apiParamExample {${type}} ${desc}:`;

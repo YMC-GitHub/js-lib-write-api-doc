@@ -1,18 +1,20 @@
+#!/bin/sh
+
 set -e
 echo "Enter release version: "
 read VERSION
 
 read -p "Releasing $VERSION - are you sure? (y/n)" -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
+echo # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo "Releasing $VERSION ..."
 
   # run tests
-  npm test 2>/dev/null
+  npm run test:unit 2>/dev/null
 
   # build
-  VERSION=$VERSION npm run build
+  VERSION=$VERSION
+  npm run build
 
   # commit
   git add -A
@@ -24,3 +26,7 @@ then
   git push
   npm publish
 fi
+
+## file-usage
+#./build/release.sh
+#note:i prefer to run in cm

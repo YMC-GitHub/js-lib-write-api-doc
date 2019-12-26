@@ -1,6 +1,6 @@
 /**
- * write-api-doc v1.0.4
- * (c) 2018-2019 Ye Miancheng
+ * write-api-doc v1.0.5
+ * (c) 2018 Ye Miancheng
  * @license MIT
  */
 'use strict';
@@ -26,16 +26,14 @@ var apiParam = function (type, name, value) { return ("* @apiParam {" + type + "
 var apiSuccess = function (status, type, name, desc) { return ("* @apiSuccess (" + status + ") {" + type + "} " + name + " " + desc); };
 var apiSuccessExample = function (type, desc) { return ("* @apiSuccessExample {" + type + "} " + desc + ":"); };
 var apiErrorExample = function (type, desc) { return ("* @apiErrorExample {" + type + "} " + desc + ":"); };
-var objToJsonStr = function (obj) {
-  return '* ' +
-    JSON.stringify(obj, null, 2)
-      .split('\n')
-      .join('\n* ');
-};
+var objToJsonStr = function (obj) { return '* ' +
+  JSON.stringify(obj, null, 2)
+    .split('\n')
+    .join('\n* '); };
 
 // ---------- parser ----------
 //
-function parser(its) {
+function parser (its) {
   var result = [];
   result.push('/**');
   if (its.api) {
@@ -90,23 +88,30 @@ function parser(its) {
   return result.join('\n');
 }
 
-// ---------- engine ----------
-var ApidocEngine = function ApidocEngine(docId, data) {
-  if (data === void 0) data = null;
+// ----make----
+var Apidoc = function Apidoc(docId, data) {
+  if ( data === void 0 ) data = null;
 
   this.id = docId;
   this.__data = data || {};
 };
-ApidocEngine.prototype.property = function property(key, val, def) {
-  if (val === void 0) val = null;
-  if (def === void 0) def = null;
+Apidoc.prototype.property = function property (key, val, def) {
+    if ( val === void 0 ) val = null;
+    if ( def === void 0 ) def = null;
 
+  /*
+      if (key in this.__data ){
+          console.log(`--key:${key}---val:${val}--def:${def}`)
+      }
+      */
+  // set when (key,val)
   if (val || val === '' || val === 0 || val === false) {
     this.__data[key] = val;
   }
   // set when (key,null,def)
   else if (def) {
     this.__data[key] = def;
+    // return def
   }
   // get when (key)
   else {
@@ -114,7 +119,17 @@ ApidocEngine.prototype.property = function property(key, val, def) {
   }
   return this;
 };
-ApidocEngine.prototype.registerMethod = function registerMethod() {
+// (new Apidoc('123')).property('host','127.0.0.1').property('port','8080').property('api','/')
+
+Apidoc.prototype.registerMethod = function registerMethod () {
+  /*
+      Object.keys(this.__data).forEach(key => {
+          if (!(key in this) && this.__data[key]) {
+              this[key] = (val, def) => this.property(key, val, def)
+          }
+      })
+      return this
+      */
   var that = this;
   Object.keys(that.__data).forEach(function (key) {
     if (!(key in that) && that.__data[key]) {
@@ -123,7 +138,12 @@ ApidocEngine.prototype.registerMethod = function registerMethod() {
   });
   return that;
 };
-ApidocEngine.prototype.toStr = function toStr() {
+// after registerMethod(), we can use as below:
+// when set:
+// (new Apidoc('123')).registerMethod().host('127.0.0.1').port(8080').api('/')
+// when get:
+// (new Apidoc('123')).registerMethod().host()
+Apidoc.prototype.toStr = function toStr () {
   return parser(this);
 };
 
@@ -134,8 +154,7 @@ ApidocEngine.prototype.toStr = function toStr() {
 // 01.pass his
 // 02.use his.property and his.registerMethod methord
 
-function writer(his) {
-  return his
+function writer (his) { return his
     .property('host', '127.0.0.1')
     .property('port', '8080')
     .property('api', ['get', '/backend/admin/list', 'R-get admin list'])
@@ -190,16 +209,22 @@ function writer(his) {
       }
     ])
     .property('sampleRequest', '127.0.0.1:8080/api/backend/admin/list')
-    .registerMethod();
-}// next export default his => his.registerMethod();
+    .registerMethod(); }// next export default his => his.registerMethod();
 
-// ---------- index ----------
-var his = writer(new ApidocEngine());
-his.apidoc = function (name, data) {
-  if (name === void 0) name = null;
-  if (data === void 0) data = {};
+/*
+class Engine extends sugar {
+    toStr() {
+        let that = this;
+        return __toStr(that);
+    }
+}
+*/
+var doc = writer(new Apidoc());
+doc.apidoc = function (name, data) {
+    if ( name === void 0 ) name = null;
+    if ( data === void 0 ) data = {};
 
-  return new ApidocEngine(name, data);
+    return new Apidoc(name, data);
 };
 
-module.exports = his;
+module.exports = doc;

@@ -1,6 +1,6 @@
 /**
- * write-api-doc v1.0.4
- * (c) 2018-2019 Ye Miancheng
+ * write-api-doc v1.0.5
+ * (c) 2018 Ye Miancheng
  * @license MIT
  */
 (function (global, factory) {
@@ -12,10 +12,10 @@
   // ---------- helper ----------
   // this is the helper file
   // ---------- helper ----------
-  //tasks:
-  //01.some sugar function for apidoc  lib
-  //02.make json object to string
-  //get detail on https://apidocjs.com/#param-api
+  // tasks:
+  // 01.some sugar function for apidoc  lib
+  // 02.make json object to string
+  // get detail on https://apidocjs.com/#param-api
 
   var api = function (method, path, title) { return ("* @api {" + method + "} " + path + " " + title); };
   var apiName = function (name) { return ("* @apiName " + name); };
@@ -59,7 +59,7 @@
       result.push(apiPermission(its.permission()));
     }
     if (its.header) {
-      //fix:* @apiHeader [object Object] undefined
+      // fix:* @apiHeader [object Object] undefined
       var data = its.header();
       Object.keys(data).forEach(function (v) { return result.push(apiHeader(v, data[v])); });
     }
@@ -92,23 +92,30 @@
     return result.join('\n');
   }
 
-  // ---------- engine ----------
-  var ApidocEngine = function ApidocEngine(docId, data) {
+  // ----make----
+  var Apidoc = function Apidoc(docId, data) {
     if ( data === void 0 ) data = null;
 
     this.id = docId;
     this.__data = data || {};
   };
-  ApidocEngine.prototype.property = function property (key, val, def) {
+  Apidoc.prototype.property = function property (key, val, def) {
       if ( val === void 0 ) val = null;
       if ( def === void 0 ) def = null;
 
+    /*
+        if (key in this.__data ){
+            console.log(`--key:${key}---val:${val}--def:${def}`)
+        }
+        */
+    // set when (key,val)
     if (val || val === '' || val === 0 || val === false) {
       this.__data[key] = val;
     }
     // set when (key,null,def)
     else if (def) {
       this.__data[key] = def;
+      // return def
     }
     // get when (key)
     else {
@@ -116,7 +123,17 @@
     }
     return this;
   };
-  ApidocEngine.prototype.registerMethod = function registerMethod () {
+  // (new Apidoc('123')).property('host','127.0.0.1').property('port','8080').property('api','/')
+
+  Apidoc.prototype.registerMethod = function registerMethod () {
+    /*
+        Object.keys(this.__data).forEach(key => {
+            if (!(key in this) && this.__data[key]) {
+                this[key] = (val, def) => this.property(key, val, def)
+            }
+        })
+        return this
+        */
     var that = this;
     Object.keys(that.__data).forEach(function (key) {
       if (!(key in that) && that.__data[key]) {
@@ -125,7 +142,12 @@
     });
     return that;
   };
-  ApidocEngine.prototype.toStr = function toStr () {
+  // after registerMethod(), we can use as below:
+  // when set:
+  // (new Apidoc('123')).registerMethod().host('127.0.0.1').port(8080').api('/')
+  // when get:
+  // (new Apidoc('123')).registerMethod().host()
+  Apidoc.prototype.toStr = function toStr () {
     return parser(this);
   };
 
@@ -156,39 +178,59 @@
         ['200', 'Array', 'list', 'The data of admin list.'],
         ['200', 'Number', 'total', ' the number of total admin.'],
         ['200', 'Number', 'hasNext', 'the number of total page is large than 1?true 1,false 0.'],
-        ['200', 'Number', 'hasPrev', ' the number of curruent page is large than 1?true 1,false 0'] ])
+        ['200', 'Number', 'hasPrev', ' the number of curruent page is large than 1?true 1,false 0']
+      ])
       .property('fail', [
         ['-200', 'Number', 'code', 'The status of the return.'],
         ['-200', 'Object', 'data', 'The data of the return.'],
         ['-200', 'String', 'message', ' The message of the return.']
       ])
-      .property('paramExample', ['json', 'request param sample', {
-        "page": 1,
-        "limit": 10
-      }])
-      .property('successExample', ['json', 'return data sample when success', {
-        'list': 'The data of admin list.',
-        'total': ' the number of total admin.',
-        'hasNext': 'the number of total page is large than 1?true 1,false 0.',
-        'hasPrev': ' the number of curruent page is large than 1?true 1,false 0'
-      }])
-      .property('failExample', ['json', 'return data sample when fail', {
-        code: "-200",
-        message: 'the fail desc',
-        data: 'the err data',
-      }])
+      .property('paramExample', [
+        'json',
+        'request param sample',
+        {
+          page: 1,
+          limit: 10
+        }
+      ])
+      .property('successExample', [
+        'json',
+        'return data sample when success',
+        {
+          list: 'The data of admin list.',
+          total: ' the number of total admin.',
+          hasNext: 'the number of total page is large than 1?true 1,false 0.',
+          hasPrev: ' the number of curruent page is large than 1?true 1,false 0'
+        }
+      ])
+      .property('failExample', [
+        'json',
+        'return data sample when fail',
+        {
+          code: '-200',
+          message: 'the fail desc',
+          data: 'the err data'
+        }
+      ])
       .property('sampleRequest', '127.0.0.1:8080/api/backend/admin/list')
-      .registerMethod(); }//next export default his => his.registerMethod();
+      .registerMethod(); }// next export default his => his.registerMethod();
 
-  // ---------- index ----------
-  var his = writer(new ApidocEngine());
-  his.apidoc = function (name, data) {
-  	if ( name === void 0 ) name = null;
-  	if ( data === void 0 ) data = {};
+  /*
+  class Engine extends sugar {
+      toStr() {
+          let that = this;
+          return __toStr(that);
+      }
+  }
+  */
+  var doc = writer(new Apidoc());
+  doc.apidoc = function (name, data) {
+      if ( name === void 0 ) name = null;
+      if ( data === void 0 ) data = {};
 
-  	return new ApidocEngine(name, data);
+      return new Apidoc(name, data);
   };
 
-  return his;
+  return doc;
 
 }));

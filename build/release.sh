@@ -10,17 +10,17 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo "Releasing $VERSION ..."
 
   # run tests
-  npm run test:unit 2>/dev/null
+  #npm run test:unit 2>/dev/null
 
   # build
   VERSION=$VERSION
-  npm run build
+  #npm run build
 
   # commit
   git add -A
   git commit -m "[build] $VERSION"
   npm version $VERSION --message "[release] $VERSION"
-
+  git tag v$VERSION
   # publish
   git push origin refs/tags/v$VERSION
   git push
@@ -29,4 +29,4 @@ fi
 
 ## file-usage
 #./build/release.sh
-#note:i prefer to run in cm
+#note:i prefer to run in pm

@@ -1,3 +1,32 @@
+# [1.1.0](https://github.com/ymc-github/write-api-doc/compare/v1.0.8...v1.1.0) (2019-12-28)
+
+
+### Features
+
+* adds some api ([85a958e](https://github.com/ymc-github/write-api-doc/commit/85a958ee778fdb24d85c7b644eac5501ec5735b8))
+
+```
+supports api
+supports apiName
+supports apiGroup
+supports apiVersion
+supports apiDescription
+supports apiPermission
+supports apiHeader
+supports apiSampleRequest
+supports apiParam
+supports apiParamExample
+supports apiSuccess
+supports apiSuccessExample
+supports apiError
+supports apiErrorExample
+supports apiDefine
+supports apiUse
+supports apiDeprecated
+supports apiIgnore
+supports apiPrivate
+```
+
 ## [1.0.8](https://github.com/ymc-github/write-api-doc/compare/v1.0.7...v1.0.8) (2019-12-28)
 
 

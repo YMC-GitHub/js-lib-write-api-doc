@@ -23,3 +23,11 @@ how to use for developer?
 [doc-for-developer-en](./doc-for-developer-en.md)
 
 [doc-for-developer-zh](./doc-for-developer-zh.md)
+
+#### \#**changelog**
+
+[CHANGELOG.md](./CHANGELOG.md)
+
+#### \#**license**
+
+MIT

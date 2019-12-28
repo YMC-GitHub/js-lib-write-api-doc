@@ -61,5 +61,10 @@ export default his =>
       }
     ])
     .property('sampleRequest', '127.0.0.1:8080/api/backend/admin/list')
+    .property('ignore', false)
+    .property('define', false)
+    .property('use', false)
+    .property('deprecated', false)
+    .property('private', false)
     .registerMethod();
 // next export default his => his.registerMethod();

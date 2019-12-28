@@ -1,4 +1,5 @@
 /**
+* @apiIgnore it is not finished method
 * @api {get} /admin/list R-get admin list
 * @apiName /api/backend/admin/list
 * @apiGroup /api/backend/admin/list
@@ -25,10 +26,15 @@
 *   "hasNext": "the number of total page is large than 1?true 1,false 0.",
 *   "hasPrev": " the number of curruent page is large than 1?true 1,false 0"
 * }
+* @apiError (-200) {Number} code The status of the return.
+* @apiError (-200) {Object} data The data of the return.
+* @apiError (-200) {String} message  The message of the return.
 * @apiErrorExample {json} return data sample when fail:
 * {
 *   "code": "-200",
 *   "message": "the fail desc",
 *   "data": "the err data"
 * }
+* @apiDeprecated it is unused now
+* @apiPrivate
 */

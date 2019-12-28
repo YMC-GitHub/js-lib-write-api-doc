@@ -1,46 +1,40 @@
 import parser from './parser.js';
-// ----make----
 export default class Apidoc {
   constructor(docId, data = null) {
     this.id = docId;
     this.__data = data || {};
   }
   property(key, val = null, def = null) {
-    /*
-        if (key in this.__data ){
-            console.log(`--key:${key}---val:${val}--def:${def}`)
-        }
-        */
-    // set when (key,val)
+    let hasVal;
     if (val || val === '' || val === 0 || val === false) {
+      hasVal = true;
+    } else {
+      hasVal = false;
+    }
+
+    // set when (key,val)
+    if (hasVal) {
       this.__data[key] = val;
     }
-    // set when (key,null,def)
+    // set with default value (key,null,def)
     else if (def) {
       this.__data[key] = def;
-      // return def
     }
     // get when (key)
     else {
-      return (key in this.__data && this.__data[key]) || null;
+      return key in this.__data ? this.__data[key] : null;
     }
     return this;
   }
-  // (new Apidoc('123')).property('host','127.0.0.1').property('port','8080').property('api','/')
-
   registerMethod() {
-    /*
-        Object.keys(this.__data).forEach(key => {
-            if (!(key in this) && this.__data[key]) {
-                this[key] = (val, def) => this.property(key, val, def)
-            }
-        })
-        return this
-        */
     let that = this;
     Object.keys(that.__data).forEach(key => {
-      if (!(key in that) && that.__data[key]) {
+      let thatHasPro = key in that;
+      let dataHasKey = key in that.__data;
+      if (!thatHasPro && dataHasKey) {
+        // register metord
         that[key] = (val, def) => that.property(key, val, def);
+        // if (key === 'ignore') console.log(key)
       }
     });
     return that;

@@ -1,5 +1,5 @@
 /**
- * write-api-doc v1.0.7
+ * write-api-doc v1.0.8
  * (c) 2018 Ye Miancheng
  * @license MIT
  */
@@ -16,25 +16,52 @@ var apiName = function (name) { return ("* @apiName " + name); };
 var apiGroup = function (group) { return ("* @apiGroup " + group); };
 var apiVersion = function (apiVersion) { return ("* @apiVersion " + apiVersion); };
 var apiDescription = function (apiDescription) { return ("* @apiDescription " + apiDescription); };
-//fix:{"message":"parser plugin 'apipermision' not found in block: 0","level":"warn"}
 var apiPermission = function (apiPermission) { return ("* @apiPermission " + apiPermission); };
 var apiHeader = function (key, val) { return ("* @apiHeader " + key + " " + val); };
-var apiSampleRequest = function (url) { return ("* @apiSampleRequest " + url); };
+//feat:adds desc
+var apiParam = function (type, name, desc) { return ("* @apiParam {" + type + "} " + name + " " + desc); };
 var apiParamExample = function (type, desc) { return ("* @apiParamExample {" + type + "} " + desc + ":"); };
-var apiParam = function (type, name, value) { return ("* @apiParam {" + type + "} " + name + " " + value); };
 var apiSuccess = function (status, type, name, desc) { return ("* @apiSuccess (" + status + ") {" + type + "} " + name + " " + desc); };
 var apiSuccessExample = function (type, desc) { return ("* @apiSuccessExample {" + type + "} " + desc + ":"); };
+//feat:adds apiError
+var apiError = function (status, type, name, desc) { return ("* @apiError (" + status + ") {" + type + "} " + name + " " + desc); };
 var apiErrorExample = function (type, desc) { return ("* @apiErrorExample {" + type + "} " + desc + ":"); };
+var apiSampleRequest = function (url) { return ("* @apiSampleRequest " + url); };
+
 var objToJsonStr = function (obj) { return '* ' +
   JSON.stringify(obj, null, 2)
     .split('\n')
     .join('\n* '); };
+
+//feat:define and use some block
+var apiDefine = function (name, title, desc) { return ("* @apiDefine " + name + " " + title + " " + desc); };
+var apiUse = function (name) { return ("* @apiUse " + name); };
+//feat:mark an API Method as deprecated
+var apiDeprecated = function (text) {
+  if ( text === void 0 ) text = '';
+
+  return ("* @apiDeprecated " + text);
+};
+//feat:a block with @apiIgnore will not be parsed
+var apiIgnore = function (text) {
+  if ( text === void 0 ) text = '';
+
+  return ("* @apiIgnore " + text);
+};
+//feat:a block with @apiPrivate will be privated
+var apiPrivate = function () { return "* @apiPrivate"; };
 
 // ---------- parser ----------
 //
 function parser (its) {
   var result = [];
   result.push('/**');
+  if (its.ignore && its.ignore()) {
+    result.push(apiIgnore(its.ignore()));
+  }
+  if (its.define && its.define()) {
+    result.push(apiDefine.apply(void 0, its.define()));
+  }
   if (its.api) {
     result.push(api.apply(void 0, its.api()));
   }
@@ -54,7 +81,6 @@ function parser (its) {
     result.push(apiPermission(its.permision()));
   }
   if (its.header) {
-    // fix:* @apiHeader [object Object] undefined
     var data = its.header();
     Object.keys(data).forEach(function (v) { return result.push(apiHeader(v, data[v])); });
   }
@@ -79,15 +105,29 @@ function parser (its) {
     result.push(apiSuccessExample.apply(void 0, its.successExample().slice(0, 2)));
     result.push(objToJsonStr.apply(void 0, its.successExample().slice(2)));
   }
+  //feat:
+  if (its.fail) {
+    its.fail().forEach(function (v) {
+      result.push(apiError.apply(void 0, v));
+    });
+  }
   if (its.failExample) {
     result.push(apiErrorExample.apply(void 0, its.failExample().slice(0, 2)));
     result.push(objToJsonStr.apply(void 0, its.failExample().slice(2)));
+  }
+  if (its.use && its.use()) {
+    result.push(apiUse(its.use()));
+  }
+  if (its.deprecated && its.deprecated()) {
+    result.push(apiDeprecated(its.deprecated()));
+  }
+  if (its.private && its.private()) {
+    result.push(apiPrivate());
   }
   result.push('*/');
   return result.join('\n');
 }
 
-// ----make----
 var Apidoc = function Apidoc(docId, data) {
   if ( data === void 0 ) data = null;
 
@@ -98,41 +138,36 @@ Apidoc.prototype.property = function property (key, val, def) {
     if ( val === void 0 ) val = null;
     if ( def === void 0 ) def = null;
 
-  /*
-      if (key in this.__data ){
-          console.log(`--key:${key}---val:${val}--def:${def}`)
-      }
-      */
-  // set when (key,val)
+  var hasVal;
   if (val || val === '' || val === 0 || val === false) {
+    hasVal = true;
+  } else {
+    hasVal = false;
+  }
+
+  // set when (key,val)
+  if (hasVal) {
     this.__data[key] = val;
   }
-  // set when (key,null,def)
+  // set with default value (key,null,def)
   else if (def) {
     this.__data[key] = def;
-    // return def
   }
   // get when (key)
   else {
-    return (key in this.__data && this.__data[key]) || null;
+    return (key in this.__data) ? this.__data[key] : null;
   }
   return this;
 };
-// (new Apidoc('123')).property('host','127.0.0.1').property('port','8080').property('api','/')
-
 Apidoc.prototype.registerMethod = function registerMethod () {
-  /*
-      Object.keys(this.__data).forEach(key => {
-          if (!(key in this) && this.__data[key]) {
-              this[key] = (val, def) => this.property(key, val, def)
-          }
-      })
-      return this
-      */
   var that = this;
   Object.keys(that.__data).forEach(function (key) {
-    if (!(key in that) && that.__data[key]) {
+    var thatHasPro = (key in that);
+    var dataHasKey = (key in that.__data);
+    if (!thatHasPro && dataHasKey) {
+      //register metord
       that[key] = function (val, def) { return that.property(key, val, def); };
+      //if (key === 'ignore') console.log(key)
     }
   });
   return that;
@@ -208,22 +243,19 @@ function writer (his) { return his
       }
     ])
     .property('sampleRequest', '127.0.0.1:8080/api/backend/admin/list')
+    .property('ignore', false)
+    .property('define', false)
+    .property('use', false)
+    .property('deprecated', false)
+    .property('private', false)
     .registerMethod(); }// next export default his => his.registerMethod();
 
-/*
-class Engine extends sugar {
-    toStr() {
-        let that = this;
-        return __toStr(that);
-    }
-}
-*/
 var doc = writer(new Apidoc());
 doc.apidoc = function (name, data) {
-    if ( name === void 0 ) name = null;
-    if ( data === void 0 ) data = {};
+	if ( name === void 0 ) name = null;
+	if ( data === void 0 ) data = {};
 
-    return new Apidoc(name, data);
+	return new Apidoc(name, data);
 };
 
 export default doc;

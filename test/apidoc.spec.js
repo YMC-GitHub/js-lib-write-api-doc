@@ -38,32 +38,23 @@ import data from './data';
 let expect = chai.expect;
 // ----test----
 let doc = new Apidoc('some doc');
+let __data = Object.assign({}, data);
 
-Object.keys(data).forEach(v => doc.property(v, data[v]));
-/*
-doc
-  .property('host', data.host)
-  .property('port', data.port)
-  .property('api', data.api)
-  .property('name', data.name)
-  .property('group', data.group)
-  .property('version', data.version)
-  .property('description', data.description)
-  .property('permision', data.permision)
-*/
+Object.keys(__data).forEach(v => doc.property(v, __data[v]));
+
 doc.registerMethod();
 
 function shortExpect(key) {
   describe(key, function() {
-    it(`expect ${key} to equal ${data[key]}`, function() {
-      expect(doc.property(key)).to.be.equal(data[key]);
+    it(`expect ${key} to equal ${__data[key]}`, function() {
+      expect(doc.property(key)).to.be.equal(__data[key]);
     });
   });
 }
 function shortexpect2(key) {
   describe(key, function() {
-    it(`expect ${key} to equal ${data[key]}`, function() {
-      expect(doc[key]()).to.be.equal(data[key]);
+    it(`expect ${key} to equal ${__data[key]}`, function() {
+      expect(doc[key]()).to.be.equal(__data[key]);
     });
   });
 }
@@ -75,7 +66,7 @@ describe('api-style-01', function() {
   short_expect('port')
   short_expect('api')
   */
-  Object.keys(data).forEach(v => shortExpect(v));
+  Object.keys(__data).forEach(v => shortExpect(v));
 });
 // test api-style-02
 describe('api-style-02', function() {
@@ -83,5 +74,7 @@ describe('api-style-02', function() {
   short_expect2('host')
   short_expect2('port')
   */
-  Object.keys(data).forEach(v => shortexpect2(v));
+  Object.keys(__data).forEach(v => shortexpect2(v));
 });
+// update data and test some branch for coverage
+// delete data.define

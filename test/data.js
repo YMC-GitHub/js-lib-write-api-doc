@@ -52,5 +52,11 @@ export default {
       message: 'the fail desc',
       data: 'the err data'
     }
-  ]
+  ],
+  ignore: 'it is not finished method',
+  define: false,
+  use: false,
+  deprecated: 'it is unused now',
+  // the api is private
+  private: 'it is private now'
 };

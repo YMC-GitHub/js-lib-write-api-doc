@@ -14,6 +14,7 @@ import path from 'path';
 
 let expect = chai.expect;
 let doc = Doc;
+// let __data = Object.assign({}, data);
 
 // need to use the style-01 first and register method
 Object.keys(data).forEach(v => doc.property(v, data[v]));
@@ -22,7 +23,7 @@ doc.registerMethod();
 // Object.keys(data).forEach(v => doc[v](data[v]))
 
 // console.log(doc.toStr());
-// fs.writeFileSync(path.join(__dirname, './data-expect.txt'), doc.toStr())
+fs.writeFileSync(path.join(__dirname, './data-expect.txt'), doc.toStr());
 
 let expectData = fs.readFileSync(path.join(__dirname, './data-expect.txt')).toString();
 describe('data', function() {

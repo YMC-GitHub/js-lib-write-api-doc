@@ -1,5 +1,5 @@
 /**
- * write-api-doc v1.0.6
+ * write-api-doc v1.0.7
  * (c) 2018 Ye Miancheng
  * @license MIT
  */
@@ -17,7 +17,7 @@ var apiGroup = function (group) { return ("* @apiGroup " + group); };
 var apiVersion = function (apiVersion) { return ("* @apiVersion " + apiVersion); };
 var apiDescription = function (apiDescription) { return ("* @apiDescription " + apiDescription); };
 //fix:{"message":"parser plugin 'apipermision' not found in block: 0","level":"warn"}
-var apiPermision = function (apiPermision) { return ("* @apiPermission " + apiPermision); };
+var apiPermission = function (apiPermission) { return ("* @apiPermission " + apiPermission); };
 var apiHeader = function (key, val) { return ("* @apiHeader " + key + " " + val); };
 var apiSampleRequest = function (url) { return ("* @apiSampleRequest " + url); };
 var apiParamExample = function (type, desc) { return ("* @apiParamExample {" + type + "} " + desc + ":"); };
@@ -51,7 +51,7 @@ function parser (its) {
     result.push(apiDescription(its.description()));
   }
   if (its.permision) {
-    result.push(apiPermision(its.permision()));
+    result.push(apiPermission(its.permision()));
   }
   if (its.header) {
     // fix:* @apiHeader [object Object] undefined

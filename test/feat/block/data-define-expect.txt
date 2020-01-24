@@ -1,0 +1,6 @@
+/**
+* @apiDefine MyError blog-api for my blog api
+* @apiError (-200) {Number} code The status of the return.
+* @apiError (-200) {Object} data The data of the return.
+* @apiError (-200) {String} message  The message of the return.
+*/

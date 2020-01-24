@@ -1,0 +1,40 @@
+/**
+* @apiIgnore it is not finished method
+* @api {get} /admin/list R-get admin list
+* @apiName /api/backend/admin/list
+* @apiGroup /api/backend/admin/list
+* @apiVersion 1.0.0
+* @apiDescription R-get admin list
+* @apiPermission none
+* @apiHeader Accept-Encoding Accept-Encoding: gzip, deflate
+* @apiSampleRequest 127.0.0.1:8080/api/backend/admin/list
+* @apiParamExample {json} request param sample:
+* {
+*   "page": 1,
+*   "limit": 10
+* }
+* @apiParam {Number} page The crruent page id.
+* @apiParam {Number} limit The max number of per page.
+* @apiSuccess (200) {Array} list The data of admin list.
+* @apiSuccess (200) {Number} total  the number of total admin.
+* @apiSuccess (200) {Number} hasNext the number of total page is large than 1?true 1,false 0.
+* @apiSuccess (200) {Number} hasPrev  the number of curruent page is large than 1?true 1,false 0
+* @apiSuccessExample {json} return data sample when success:
+* {
+*   "list": "The data of admin list.",
+*   "total": " the number of total admin.",
+*   "hasNext": "the number of total page is large than 1?true 1,false 0.",
+*   "hasPrev": " the number of curruent page is large than 1?true 1,false 0"
+* }
+* @apiError (-200) {Number} code The status of the return.
+* @apiError (-200) {Object} data The data of the return.
+* @apiError (-200) {String} message  The message of the return.
+* @apiErrorExample {json} return data sample when fail:
+* {
+*   "code": "-200",
+*   "message": "the fail desc",
+*   "data": "the err data"
+* }
+* @apiDeprecated it is unused now
+* @apiPrivate
+*/

@@ -1,20 +1,27 @@
+/* eslint-disable global-require */
+// include some lib
 const path = require('path');
 const buble = require('rollup-plugin-buble');
 const replace = require('rollup-plugin-replace');
-const version = process.env.VERSION || require('../package.json').version;
+// include some data
+const dirMapConfig = require('../config/dir.map.config');
+const npmPackageConfig = require('../package.json');
+
+const libName = process.env.NAME || npmPackageConfig.name;
+const yearNow = new Date().getFullYear();
+const author = process.env.AUTHOR || npmPackageConfig.author;
+const version = process.env.VERSION || npmPackageConfig.version;
+const yearStart = '2018';
+const year = yearNow === yearStart ? yearStart : `${yearStart}-${yearNow}`;
+
 const banner = `/**
- * write-api-doc v${version}
- * (c) 2018 Ye Miancheng
+ * ${libName} v${version}
+ * (c) ${year} ${author}
  * @license MIT
  */`;
 
-/**
- * 获取绝对路径
- * @param {*} _path 路径
- * @returns {*}
- * 传入相对于工程目录的某一路径，返回绝对路径
- */
-const resolve = _path => path.resolve(__dirname, '../', _path);
+const rootPath = path.resolve(__dirname, '../');
+const resolve = _path => path.resolve(rootPath, _path);
 
 /**
  * 输入输出配置
@@ -24,11 +31,11 @@ const configs = {
     /**
      * @prop input 输入文件
      */
-    input: resolve('src/index.js'),
+    input: resolve(`${dirMapConfig.src}/index.js`),
     /**
      * @prop file 输出文件
      */
-    file: resolve('dist/write-api-doc.js'),
+    file: resolve(`${dirMapConfig.dist}/${libName}.js`),
     /**
      * @prop format 类库规范
      */
@@ -39,19 +46,19 @@ const configs = {
     env: 'development'
   },
   umdProd: {
-    input: resolve('src/index.js'),
-    file: resolve('dist/write-api-doc.min.js'),
+    input: resolve(`${dirMapConfig.src}/index.js`),
+    file: resolve(`${dirMapConfig.dist}/${libName}.min.js`),
     format: 'umd',
     env: 'production'
   },
   commonjs: {
-    input: resolve('src/index.js'),
-    file: resolve('dist/write-api-doc.common.js'),
+    input: resolve(`${dirMapConfig.src}/index.js`),
+    file: resolve(`${dirMapConfig.dist}/${libName}.common.js`),
     format: 'cjs'
   },
   esm: {
-    input: resolve('src/index.esm.js'),
-    file: resolve('dist/write-api-doc.esm.js'),
+    input: resolve(`${dirMapConfig.src}/index.esm.js`),
+    file: resolve(`${dirMapConfig.dist}/${libName}.esm.js`),
     format: 'es'
   }
 };
@@ -76,7 +83,7 @@ function genConfig(opts) {
       banner,
       file: opts.file,
       format: opts.format,
-      name: 'write-api-doc'
+      name: libName
     }
   };
 

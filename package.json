@@ -6,7 +6,7 @@
   "module": "dist/write-api-doc.esm.js",
   "unpkg": "dist/write-api-doc.js",
   "scripts": {
-    "dev:dist": "./node_modules/.bin/nodemon --legacy-watch --config nodemon.json",
+    "dev": "nodemon --legacy-watch --config config/nodemon.config.json",
     "build": "node build/rollup.pro.config.js",
     "lint": "eslint --fix src test",
     "test:unit": "rollup --config build/rollup.dev.config.js && mocha --require babel-core/register",

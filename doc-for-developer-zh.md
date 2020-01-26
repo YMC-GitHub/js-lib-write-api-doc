@@ -25,7 +25,7 @@ eof
 ### \#**开发**
 ```sh
 ::<<eof
-npm run dev:dist
+npm run dev
 eof
 ```
 想了解详情，点击[这里](./note/note-using-rollup-for-lib-zh.md)
@@ -33,6 +33,7 @@ eof
 ### \#**测试**
 ```sh
 ::<<eof
+npm run test
 npm run test:unit
 eof
 ```

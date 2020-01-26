@@ -33,7 +33,7 @@ eof
 ### \#**develop**
 ```sh
 ::<<eof
-npm run dev:dist
+npm run dev
 eof
 ```
 get more details ,please click here:
@@ -43,6 +43,7 @@ get more details ,please click here:
 ### \#**test**
 ```sh
 ::<<eof
+npm run test
 npm run test:unit
 eof
 ```

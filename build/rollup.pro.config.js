@@ -107,7 +107,7 @@ function writeToFile({ isProd, output, code }) {
   if (isProd) {
     const minified =
       (output.banner ? `${output.banner}\n` : '') +
-      +uglify.minify(code, {
+      uglify.minify(code, {
         output: {
           // eslint-disable-next-line camelcase
           ascii_only: true

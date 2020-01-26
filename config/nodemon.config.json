@@ -3,5 +3,5 @@
     "src/"
   ],
   "ext": "js",
-  "exec": "rollup --config build/rollup.dev.config.js"
+  "exec": "rollup -m --config build/rollup.dev.config.js"
 }

@@ -7,7 +7,7 @@ yarn install write-api-doc
 
 # way-cdn:
 <script src="your url or my url"> </script>
-#my url is https://unpkg.com/write-api-doc@1.0.4/dist/write-api-doc.js
+#my url is https://unpkg.com/write-api-doc@1.0.4/lib/write-api-doc.js
 
 ```
 #### \#**使用**

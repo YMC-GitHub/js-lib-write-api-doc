@@ -2,9 +2,9 @@
   "name": "write-api-doc",
   "version": "1.1.0",
   "description": "write api doc,it can be a tool for apidoc",
-  "main": "dist/write-api-doc.common.js",
-  "module": "dist/write-api-doc.esm.js",
-  "unpkg": "dist/write-api-doc.js",
+  "main": "lib/write-api-doc.common.js",
+  "module": "lib/write-api-doc.esm.js",
+  "unpkg": "lib/write-api-doc.js",
   "scripts": {
     "dev": "nodemon --legacy-watch --config config/nodemon.config.json",
     "build": "node build/rollup.pro.config.js",
@@ -54,6 +54,6 @@
     "uglify-js": "^3.7.2"
   },
   "files": [
-    "dist"
+    "lib"
   ]
 }

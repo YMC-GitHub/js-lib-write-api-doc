@@ -13,7 +13,7 @@ npm install https://github.com/YMC-GitHub/js-lib-write-api-doc.git#v1.1.0 --save
 
 # way-cdn:
 <script src="your url or my url"> </script>
-#my url is https://unpkg.com/write-api-doc@1.1.0/dist/write-api-doc.js
+#my url is https://unpkg.com/write-api-doc@1.1.0/lib/write-api-doc.js
 ```
 #### \#**usage**
 

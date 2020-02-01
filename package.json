@@ -1,6 +1,6 @@
 {
   "name": "write-api-doc",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "write api doc,it can be a tool for apidoc",
   "main": "lib/write-api-doc.common.js",
   "module": "lib/write-api-doc.esm.js",

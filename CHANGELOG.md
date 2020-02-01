@@ -1,3 +1,22 @@
+## 2.0.0 (2020-02-01)
+
+* refactor: update build and config ([fa0c39f](https://github.com/ymc-github/js-lib-write-api-doc/commit/fa0c39f))
+* refactor: update dir dist to lib ([41b77d5](https://github.com/ymc-github/js-lib-write-api-doc/commit/41b77d5))
+* build: add .vscode to ignore ([16d30e0](https://github.com/ymc-github/js-lib-write-api-doc/commit/16d30e0))
+* build: add eslint ignore file ([00ea60d](https://github.com/ymc-github/js-lib-write-api-doc/commit/00ea60d))
+* build: update build for pro ([8baa818](https://github.com/ymc-github/js-lib-write-api-doc/commit/8baa818))
+* build: update config ([5603d2a](https://github.com/ymc-github/js-lib-write-api-doc/commit/5603d2a))
+* build: update git repo url ([fc0e683](https://github.com/ymc-github/js-lib-write-api-doc/commit/fc0e683))
+* build: update lint-staged config ([346bd97](https://github.com/ymc-github/js-lib-write-api-doc/commit/346bd97))
+* build: update npm files key ([8592f6a](https://github.com/ymc-github/js-lib-write-api-doc/commit/8592f6a))
+* build: use lint-staged lib ([ccd09bf](https://github.com/ymc-github/js-lib-write-api-doc/commit/ccd09bf))
+* build: use soucemap for rollup ([d7fbf99](https://github.com/ymc-github/js-lib-write-api-doc/commit/d7fbf99))
+* docs: update dev cmd ([36dcfdb](https://github.com/ymc-github/js-lib-write-api-doc/commit/36dcfdb))
+* docs: update style and npm install ([3537c84](https://github.com/ymc-github/js-lib-write-api-doc/commit/3537c84))
+* style:update ([f97531b](https://github.com/ymc-github/js-lib-write-api-doc/commit/f97531b))
+
+
+
 # [1.1.0](https://github.com/ymc-github/write-api-doc/compare/v1.0.8...v1.1.0) (2019-12-28)
 
 

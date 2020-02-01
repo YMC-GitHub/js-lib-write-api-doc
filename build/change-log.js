@@ -9,7 +9,7 @@ if (hasHim) {
 }
 // console.log(cache.toString())
 // 获取新的
-const newData = conventionalChangelog({ preset: 'angular', releaseCount: 1 });
+const newData = conventionalChangelog({ preset: 'yemiancheng', releaseCount: 1 });
 const result = fs.createWriteStream('CHANGELOG.md', { encoding: 'utf-8', flags: 'w' });
 // 写入新的
 newData.pipe(result);

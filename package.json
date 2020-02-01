@@ -37,6 +37,7 @@
     "chai": "^4.2.0",
     "commitlint-config-yemiancheng": "^1.0.0",
     "conventional-changelog": "^3.1.10",
+    "conventional-changelog-yemiancheng": "git+https://github.com/YMC-GitHub/js-lib-changelog-preset.git",
     "cross-env": "^5.2.1",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",

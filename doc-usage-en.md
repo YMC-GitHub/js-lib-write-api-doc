@@ -6,9 +6,9 @@
 npm install write-api-doc
 
 # way-git:
-npm install https://github.com/YMC-GitHub/write-api-doc.git --save-dev
+npm install https://github.com/YMC-GitHub/js-lib-write-api-doc.git --save-dev
 #2 some version
-npm install https://github.com/YMC-GitHub/write-api-doc.git#v1.1.0 --save-dev
+npm install https://github.com/YMC-GitHub/js-lib-write-api-doc.git#v1.1.0 --save-dev
 
 
 # way-cdn:

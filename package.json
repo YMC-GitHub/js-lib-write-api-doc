@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ymc-github/write-api-doc.git"
+    "url": "git+https://github.com/ymc-github/js-lib-write-api-doc.git"
   },
   "author": "yemiancheng <ymc.github@gmail.com> (https://github.com/YMC-GitHub)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ymc-github/write-api-doc/issues"
+    "url": "https://github.com/ymc-github/js-lib-write-api-doc/issues"
   },
-  "homepage": "https://github.com/ymc-github/write-api-doc#readme",
+  "homepage": "https://github.com/ymc-github/js-lib-write-api-doc#readme",
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "babel-core": "^6.26.3",

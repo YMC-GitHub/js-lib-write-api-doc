@@ -6,7 +6,7 @@
 # 设置配置
 MY_PROJECT_NAME="write-api-doc"
 MY_PROJECTS_DIR="./code-store"
-MY_REMOTE_PROJECT_URL="https://github.com/YMC-GitHub/write-api-doc.git"
+MY_REMOTE_PROJECT_URL="https://github.com/YMC-GitHub/js-lib-write-api-doc.git"
 # 切换目录
 cd ${MY_PROJECTS_DIR}
 # 下拉代码

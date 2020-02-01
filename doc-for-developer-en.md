@@ -6,7 +6,7 @@
 # set some config
 MY_PROJECT_NAME="write-api-doc"
 MY_PROJECTS_DIR="./code-store"
-MY_REMOTE_PROJECT_URL="https://github.com/YMC-GitHub/write-api-doc.git"
+MY_REMOTE_PROJECT_URL="https://github.com/YMC-GitHub/js-lib-write-api-doc.git"
 
 #get code with git
 cd ${MY_PROJECTS_DIR} && git clone ${MY_REMOTE_PROJECT_URL} ${MY_PROJECT_NAME}
